@@ -1,6 +1,6 @@
 package com.example.save;
 
-import com.example.parser.Title;
+import com.example.lib.Title;
 
 import java.util.List;
 
