@@ -1,4 +1,4 @@
-package com.example.save;
+package com.example.entities;
 
 import com.example.lib.FicBook;
 import com.example.lib.Person;
@@ -16,9 +16,10 @@ import java.util.stream.Collectors;
 
 public class Parser {
 
-    private Integer counter = 1;
+    private int counter = 1;
+    private int index = 0;
 
-    private static final String REGEX = "\\[(\\d+)";
+    private static final String REGEX = "\\[(\\d+)\\]";
 
     @SneakyThrows
     public Book getBook(File file) {
@@ -42,12 +43,15 @@ public class Parser {
 
         getInfo(book, description);
 
+        book.setIndexes(chapters.size());
+
         book.setChapters(chapters);
 
         return book;
     }
 
     private void getInfo(Book book, com.example.lib.parts.Description description) {
+
         book.setTitle(description.getTitleInfo().getBookTitle());
         book.setAuthor(getAuthor(description));
     }
@@ -73,9 +77,10 @@ public class Parser {
         Matcher matcher = pattern.matcher(text);
 
         while (matcher.find()) {
-            if (matcher.group(1).equals(counter.toString())) {
-                descriptionList.add(descriptions.get(--counter));
-                counter += 2;
+            if (matcher.group(1).equals(Integer.toString(counter))) {
+                descriptionList.add(descriptions.get(index));
+                counter++;
+                index++;
             } else {
                 for (Description description : descriptions) {
                     if (matcher.group(1).equals(description.getNumber())) {
