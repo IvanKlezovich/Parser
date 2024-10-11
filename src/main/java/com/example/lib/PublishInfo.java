@@ -1,9 +1,15 @@
 package com.example.lib;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class PublishInfo {
 
     protected String bookName;
@@ -12,9 +18,6 @@ public class PublishInfo {
     protected String publisher;
     protected String isbn;
     protected Sequence sequence;
-
-    public PublishInfo() {
-    }
 
     public PublishInfo(Document document) {
         NodeList description = document.getElementsByTagName("publish-info");
@@ -41,32 +44,9 @@ public class PublishInfo {
                     case "sequence":
                         sequence = new Sequence(node);
                         break;
+                    default:
                 }
             }
         }
-    }
-
-    public String getBookName() {
-        return bookName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public Sequence getSequence() {
-        return sequence;
-    }
-
-    public String getIsbn() {
-        return isbn;
     }
 }

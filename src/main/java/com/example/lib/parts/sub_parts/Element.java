@@ -1,15 +1,17 @@
 package com.example.lib.parts.sub_parts;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.Node;
 
-import java.util.ArrayList;
+import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Element {
     protected String text;
-
-    public Element() {
-        text = null;
-    }
 
     public Element(Node p) {
         text = p.getTextContent();
@@ -19,11 +21,7 @@ public class Element {
         text = p;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public static String getText(ArrayList<Element> list, String divider) {
+    public static String getText(List<Element> list, String divider) {
         StringBuilder text = new StringBuilder();
         for (Element p : list) {
             text.append(p.getText()).append(divider);

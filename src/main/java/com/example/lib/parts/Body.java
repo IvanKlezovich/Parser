@@ -4,22 +4,26 @@ import com.example.lib.Epigraph;
 import com.example.lib.Image;
 import com.example.lib.Section;
 import com.example.lib.Title;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Body {
-    protected String lang;
-    protected String name;
-    protected Title title;
-    protected Image image;
-    protected ArrayList<Section> sections = new ArrayList<>();
-    protected ArrayList<Epigraph> epigraphs;
-
-    public Body() {
-    }
+    private String lang;
+    private String name;
+    private Title title;
+    private Image image;
+    private List<Section> sections = new ArrayList<>();
+    private List<Epigraph> epigraphs = new ArrayList<>();
 
     public Body(Node body) {
         NamedNodeMap attrs = body.getAttributes();
@@ -49,58 +53,10 @@ public class Body {
                     image = new Image(node);
                     break;
                 case "epigraph":
-                    if (epigraphs == null) epigraphs = new ArrayList<>();
                     epigraphs.add(new Epigraph(node));
                     break;
+                default:
             }
         }
-    }
-
-    public ArrayList<Section> getSections() {
-        return sections;
-    }
-
-    public Title getTitle() {
-        return title;
-    }
-
-    public ArrayList<Epigraph> getEpigraphs() {
-        return epigraphs;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setTitle(Title title) {
-        this.title = title;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public void setSections(ArrayList<Section> sections) {
-        this.sections = sections;
-    }
-
-    public void setEpigraphs(ArrayList<Epigraph> epigraphs) {
-        this.epigraphs = epigraphs;
     }
 }

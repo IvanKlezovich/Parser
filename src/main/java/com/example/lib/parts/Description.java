@@ -1,45 +1,28 @@
 package com.example.lib.parts;
 
 import com.example.lib.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.Document;
 
-import java.util.ArrayList;
+import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Description {
 
-    protected TitleInfo titleInfo;
-    protected SrcTitleInfo srcTitleInfo;
-    protected DocumentInfo documentInfo;
-    protected PublishInfo publishInfo;
-    protected ArrayList<CustomInfo> customInfo = new ArrayList<>();
-
-    public Description() {
-    }
+    private TitleInfo titleInfo;
+    private SrcTitleInfo srcTitleInfo;
+    private DocumentInfo documentInfo;
+    private PublishInfo publishInfo;
+    private List<CustomInfo> customInfo;
 
     public Description(Document doc) {
         titleInfo = new TitleInfo(doc);
         srcTitleInfo = new SrcTitleInfo(doc);
         documentInfo = new DocumentInfo(doc);
         publishInfo = new PublishInfo(doc);
-    }
-
-    public DocumentInfo getDocumentInfo() {
-        return documentInfo;
-    }
-
-    public TitleInfo getTitleInfo() {
-        return titleInfo;
-    }
-
-    public PublishInfo getPublishInfo() {
-        return publishInfo;
-    }
-
-    public SrcTitleInfo getSrcTitleInfo() {
-        return srcTitleInfo;
-    }
-
-    public ArrayList<CustomInfo> getCustomInfo() {
-        return customInfo;
     }
 }

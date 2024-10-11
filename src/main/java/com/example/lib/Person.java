@@ -1,21 +1,26 @@
 package com.example.lib;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class Person {
-    protected String id;
-    protected String firstName;
-    protected String middleName;
-    protected String lastName;
-    protected String nickname;
-    protected ArrayList<String> homePages;
-    protected ArrayList<String> emails;
 
-    public Person() {
-    }
+    private String id;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String nickname;
+    private List<String> homePages = new ArrayList<>();
+    private List<String> emails = new ArrayList<>();
 
     Person(Node node) {
         NodeList nodeList = node.getChildNodes();
@@ -45,41 +50,14 @@ public class Person {
                 case "last-name":
                     lastName = author.getTextContent();
                     break;
+                default:
             }
         }
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getNickname() {
-        return nickname;
     }
 
     public String getFullName() {
         return (firstName == null ? "" : firstName + " ")
                 + (middleName == null ? "" : middleName + " ")
                 + (lastName == null ? "" : lastName);
-    }
-
-    public ArrayList<String> getEmails() {
-        return emails == null ? new ArrayList<String>() : emails;
-    }
-
-    public ArrayList<String> getHomePages() {
-        return homePages == null ? new ArrayList<String>() : homePages;
     }
 }

@@ -1,14 +1,18 @@
 package com.example.lib;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Sequence {
-    protected String name;
-    protected String number;
-
-    public Sequence() {
-    }
+    
+    private String name;
+    private String number;
 
     Sequence(Node node) {
         NamedNodeMap map = node.getAttributes();
@@ -20,13 +24,5 @@ public class Sequence {
                 number = attr.getNodeValue();
             }
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getNumber() {
-        return number;
     }
 }

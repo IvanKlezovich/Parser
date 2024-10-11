@@ -2,7 +2,6 @@ package com.example.lib;
 
 public class CustomInfo {
 //    TODO
-
 //    <custom-info info-type="">КАРА УИЛСОН
 //    Лучший из дней
 //            РОМАН

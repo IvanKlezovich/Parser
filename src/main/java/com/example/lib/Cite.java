@@ -1,21 +1,25 @@
 package com.example.lib;
 
 import com.example.lib.parts.sub_parts.Element;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Cite extends Element {
 
-    protected String id;
-    protected String lang;
-    protected ArrayList<Element> elements;
-    protected ArrayList<TextAuthor> textAuthor;
-
-    public Cite() {
-    }
+    private String id;
+    private String lang;
+    private List<Element> elements = new ArrayList<>();
+    private List<TextAuthor> textAuthor = new ArrayList<>();
 
     Cite(Node node) {
         NamedNodeMap attrs = node.getAttributes();
@@ -31,46 +35,12 @@ public class Cite extends Element {
 
         NodeList nodeList = node.getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {
-            Node paragraph = nodeList.item(i);
-            switch (paragraph.getNodeName()) {
-                case "text-author":
-                    if (textAuthor == null) textAuthor = new ArrayList<>();
-                    textAuthor.add(new TextAuthor(paragraph));
-                    break;
-                case "poem":
-                    if (elements == null) elements = new ArrayList<>();
-                    elements.add(new Poem(paragraph));
-                    break;
-                case "subtitle":
-                    if (elements == null) elements = new ArrayList<>();
-                    elements.add(new Subtitle(paragraph));
-                    break;
-                case "p":
-                    if (elements == null) elements = new ArrayList<>();
-                    elements.add(new P(paragraph));
-                    break;
-                case "empty-line":
-                    if (elements == null) elements = new ArrayList<>();
-                    elements.add(new EmptyLine());
-                    break;
-            }
+            addElement(nodeList.item(i));
         }
     }
 
-    public ArrayList<TextAuthor> getTextAuthor() {
-        return textAuthor == null ? new ArrayList<TextAuthor>() : textAuthor;
-    }
-
-    public void setTextAuthor(ArrayList<TextAuthor> textAuthor) {
-        this.textAuthor = textAuthor;
-    }
-
-    public ArrayList<Element> getElements() {
-        return elements == null ? new ArrayList<Element>() : elements;
-    }
-
-    public void setElements(ArrayList<Element> elements) {
-        this.elements = elements;
+    public List<Element> getElements() {
+        return elements == null ? new ArrayList<>() : elements;
     }
 
     @Override
@@ -80,19 +50,24 @@ public class Cite extends Element {
         return Element.getText(list, "\n");
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
+    private void addElement(Node paragraph){
+        switch (paragraph.getNodeName()) {
+            case "text-author":
+                textAuthor.add(new TextAuthor(paragraph));
+                break;
+            case "poem":
+                elements.add(new Poem(paragraph));
+                break;
+            case "subtitle":
+                elements.add(new Subtitle(paragraph));
+                break;
+            case "p":
+                elements.add(new P(paragraph));
+                break;
+            case "empty-line":
+                elements.add(new EmptyLine());
+                break;
+            default:
+        }
     }
 }

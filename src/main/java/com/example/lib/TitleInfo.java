@@ -1,5 +1,8 @@
 package com.example.lib;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -7,24 +10,24 @@ import org.w3c.dom.NodeList;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class TitleInfo {
-    protected ArrayList<String> genre = new ArrayList<>();
+    private List<String> genre = new ArrayList<>();
 
 //  TODO http://www.fictionbook.org/index.php/Жанры_FictionBook_2.1
 
-    protected ArrayList<String> keywords = new ArrayList<>();
-    protected String bookTitle;
-    protected String date;
-    protected String lang;
-    protected String srcLang;
-    protected ArrayList<Person> authors = new ArrayList<>();
-    protected ArrayList<Person> translators = new ArrayList<>();
-    protected Annotation annotation;
-    protected ArrayList<Image> coverPage = new ArrayList<>();
-    protected Sequence sequence;
-
-    public TitleInfo() {
-    }
+    private List<String> keywords = new ArrayList<>();
+    private String bookTitle;
+    private String date;
+    private String lang;
+    private String srcLang;
+    private List<Person> authors = new ArrayList<>();
+    private List<Person> translators = new ArrayList<>();
+    private Annotation annotation;
+    private List<Image> coverPage = new ArrayList<>();
+    private Sequence sequence;
 
     public TitleInfo(Document document) {
         NodeList description = document.getElementsByTagName("title-info");
@@ -71,60 +74,9 @@ public class TitleInfo {
                     case "src-lang":
                         srcLang = node.getTextContent();
                         break;
+                    default:
                 }
             }
         }
-    }
-
-    public List<String> getGenres() {
-        return genre;
-    }
-
-    public String getBookTitle() {
-        return bookTitle;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public String getSrcLang() {
-        return srcLang;
-    }
-
-    public List<Person> getAuthors() {
-        return authors;
-    }
-
-    public List<Person> getTranslators() {
-        return translators;
-    }
-
-    public Annotation getAnnotation() {
-        return annotation;
-    }
-
-    public List<Image> getCoverPage() {
-        return coverPage;
-    }
-
-    public Sequence getSequence() {
-        return sequence;
-    }
-
-    public List<String> getGenre() {
-        return genre;
-    }
-
-    public List<String> getKeywords() {
-        return keywords;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
     }
 }

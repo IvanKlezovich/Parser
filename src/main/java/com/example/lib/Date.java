@@ -1,14 +1,18 @@
 package com.example.lib;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class Date {
-    protected String value;
-    protected String date;
 
-    public Date() {
-    }
+    private String value;
+    private String dateString;
 
     Date(Node node) {
         NamedNodeMap map = node.getAttributes();
@@ -18,14 +22,6 @@ public class Date {
                 value = attr.getNodeValue();
             }
         }
-        date = node.getTextContent();
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public String getDate() {
-        return date;
+        dateString = node.getTextContent();
     }
 }

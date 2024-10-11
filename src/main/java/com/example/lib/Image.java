@@ -1,26 +1,20 @@
 package com.example.lib;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.Node;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Image {
 
-    protected String name;
-    protected String value;
+    private String name;
+    private String value;
 
     public Image(Node node) {
         this.name = node.getAttributes().item(0).getNodeName();
         this.value = node.getAttributes().item(0).getNodeValue();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public Image() {
-        super();
     }
 }

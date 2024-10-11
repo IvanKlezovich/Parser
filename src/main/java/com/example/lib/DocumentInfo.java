@@ -1,27 +1,31 @@
 package com.example.lib;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class DocumentInfo {
 
-    protected ArrayList<Person> authors = new ArrayList<>();
-    protected ArrayList<Person> publishers;
-    protected String programUsed;
-    protected String srcUrl;
-    protected String srcOcr;
-    protected String email;
-    protected String id;
-    protected String version;
-    protected History history;
-    protected Date date;
-
-    public DocumentInfo() {
-    }
-
+    private List<Person> authors = new ArrayList<>();
+    private List<Person> publishers = new ArrayList<>();
+    private String programUsed;
+    private String srcUrl;
+    private String srcOcr;
+    private String email;
+    private String id;
+    private String version;
+    private History history;
+    private Date date;
+    
     public DocumentInfo(Document document) {
         NodeList description = document.getElementsByTagName("document-info");
         for (int item = 0; item < description.getLength(); item++) {
@@ -60,44 +64,9 @@ public class DocumentInfo {
                     case "date":
                         this.date = new Date(node);
                         break;
+                    default:
                 }
             }
         }
-    }
-
-    public ArrayList<Person> getAuthors() {
-        return authors;
-    }
-
-    public String getProgramUsed() {
-        return programUsed;
-    }
-
-    public String getSrcUrl() {
-        return srcUrl;
-    }
-
-    public String getSrcOcr() {
-        return srcOcr;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public History getHistory() {
-        return history;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public String getEmail() {
-        return email;
     }
 }

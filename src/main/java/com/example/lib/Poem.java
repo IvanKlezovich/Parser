@@ -1,20 +1,25 @@
 package com.example.lib;
 
 import com.example.lib.parts.sub_parts.Element;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Poem extends Element {
-    protected Title title;
-    protected ArrayList<Epigraph> epigraphs;
-    protected ArrayList<Stanza> stanza = new ArrayList<>();
-    protected String textAuthor;
-    protected String date;
-
-    public Poem() {
-    }
+    
+    private Title title;
+    private List<Epigraph> epigraphs;
+    private List<Stanza> stanza = new ArrayList<>();
+    private String textAuthor;
+    private String date;
 
     Poem(Node node) {
         NodeList nodeList = node.getChildNodes();
@@ -37,24 +42,9 @@ public class Poem extends Element {
                 case "stanza":
                     stanza.add(new Stanza(paragraph));
                     break;
+                default:
             }
         }
-    }
-
-    public Title getTitle() {
-        return title;
-    }
-
-    public ArrayList<Epigraph> getEpigraphs() {
-        return epigraphs;
-    }
-
-    public String getTextAuthor() {
-        return textAuthor;
-    }
-
-    public String getDate() {
-        return date;
     }
 
     @Override
@@ -67,7 +57,7 @@ public class Poem extends Element {
                     if (title1 != null) list.addAll(title1.getParagraphs());
                 }
             }
-            list.addAll(stanza1.getStanza());
+            list.addAll(stanza1.getStanzaList());
         }
         return Element.getText(list, "\n");
     }

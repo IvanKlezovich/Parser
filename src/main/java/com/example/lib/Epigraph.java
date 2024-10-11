@@ -1,25 +1,31 @@
 package com.example.lib;
 
 import com.example.lib.parts.sub_parts.Element;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
+
+@NoArgsConstructor
+@Getter
+@Setter
 public class Epigraph extends IdElement{
-    protected ArrayList<Element> elements = new ArrayList<>();
-    protected ArrayList<TextAuthor> textAuthor = new ArrayList<>();
 
-    public Epigraph() {
-    }
+    private List<Element> elements = new ArrayList<>();
+    private List<TextAuthor> textAuthor = new ArrayList<>();
 
     public Epigraph(Node root) {
         NamedNodeMap map = root.getAttributes();
         for (int index = 0; index < map.getLength(); index++) {
             Node attr = map.item(index);
             if (attr.getNodeName().equals("id")) {
-                id = attr.getNodeValue();
+                setId(attr.getNodeValue());
             }
         }
         NodeList body = root.getChildNodes();
@@ -39,23 +45,8 @@ public class Epigraph extends IdElement{
                 case "p":
                     elements.add(new P(node));
                     break;
+                default:
             }
         }
-    }
-
-    public ArrayList<Element> getElements() {
-        return elements;
-    }
-
-    public void setElements(ArrayList<Element> elements) {
-        this.elements = elements;
-    }
-
-    public ArrayList<TextAuthor> getTextAuthor() {
-        return textAuthor;
-    }
-
-    public void setTextAuthor(ArrayList<TextAuthor> textAuthor) {
-        this.textAuthor = textAuthor;
     }
 }

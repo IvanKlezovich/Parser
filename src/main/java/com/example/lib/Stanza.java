@@ -1,14 +1,21 @@
 package com.example.lib;
 
 import com.example.lib.parts.sub_parts.Element;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@Setter
+@Getter
+@NoArgsConstructor
 public class Stanza {
-    private ArrayList<Title> title;
-    private ArrayList<Element> stanza;
+    private List<Title> title = new ArrayList<>();
+    private List<Element> stanzaList = new ArrayList<>();
 
     Stanza(Node node) {
         NodeList nodeList = node.getChildNodes();
@@ -20,30 +27,15 @@ public class Stanza {
                     title.add(new Title(paragraph));
                     break;
                 case "subtitle":
-                    if (stanza == null) stanza = new ArrayList<>();
-                    stanza.add(new Subtitle(paragraph));
+                    if (stanzaList == null) stanzaList = new ArrayList<>();
+                    stanzaList.add(new Subtitle(paragraph));
                     break;
                 case "v":
-                    if (stanza == null) stanza = new ArrayList<>();
-                    stanza.add(new V(paragraph));
+                    if (stanzaList == null) stanzaList = new ArrayList<>();
+                    stanzaList.add(new V(paragraph));
                     break;
+                default:
             }
         }
-    }
-
-    public ArrayList<Title> getTitle() {
-        return title == null ? new ArrayList<Title>() : title;
-    }
-
-    public void setTitle(ArrayList<Title> title) {
-        this.title = title;
-    }
-
-    public ArrayList<Element> getStanza() {
-        return stanza == null ? new ArrayList<Element>() : stanza;
-    }
-
-    public void setStanza(ArrayList<Element> stanza) {
-        this.stanza = stanza;
     }
 }

@@ -1,19 +1,24 @@
 package com.example.lib;
 
 import com.example.lib.parts.sub_parts.Element;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Annotation extends IdElement {
-    protected String lang;
-    protected ArrayList<Element> elements;
 
-    public Annotation() {
-    }
-
+    private String lang;
+    private List<Element> elements = new ArrayList<>();
+    
     Annotation(Node node) {
         super(node);
         NamedNodeMap map = node.getAttributes();
@@ -26,7 +31,6 @@ public class Annotation extends IdElement {
         NodeList nodeList = node.getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node paragraph = nodeList.item(i);
-            if (elements == null) elements = new ArrayList<>();
             switch (paragraph.getNodeName()) {
                 case "p":
                     elements.add(new P(paragraph));
@@ -46,27 +50,8 @@ public class Annotation extends IdElement {
                 case "table":
                     elements.add(new Table());
                     break;
+                default:
             }
         }
-    }
-
-    public ArrayList<Element> getAnnotations() {
-        return elements == null ? new ArrayList<Element>() : elements;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
-
-    public ArrayList<Element> getElements() {
-        return elements;
-    }
-
-    public void setElements(ArrayList<Element> elements) {
-        this.elements = elements;
     }
 }
