@@ -1,0 +1,20 @@
+services:
+  books_bd:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - books_db_vol:/data/db
+    networks:
+      - server_net
+
+volumes:
+  books_db_vol: {}
+networks:
+  server_net:
+    driver: bridge
